@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <div class="d-flex flex-column justify-content-center bg-dark text-light w-100 text-center" style="height: 300px">
+    <div class="">
+      <h1 class="display-3 fw-bolder align-text-bottom mb-5">Мой магазин</h1>
+      <a href="/catalogue/" class="position-relative btn btn-outline-light text-end" style="left: 10rem;">В каталог</a>
+    </div>
+  </div>
+
+  <div class="mt-5 container">
+    <div class="row gap-5 justify-content-center">
+      {% for item in items %}
+      <div class="card px-0 text-center col-3">
+        <img src="{{ item.img }}" class="card-img-top"
+             alt="item image" style="height: 200px; object-fit: cover;">
+        <div class="d-flex flex-column justify-content-between card-body">
+          <div>
+            <h5 class="card-title">{{ item.name }}</h5>
+            <h6 class="card-subtitle text-muted">{{ item.price }} <i class="fa fa-rub"></i></h6>
+          </div>
+          <p class="card-text mt-3">{{ item.description }}</p>
+          <div>
+            <a href="/product/?category={{ item.__class__.__name__ }}&pk={{ item.pk }}"
+               class="btn btn-outline-dark mt-3">Подробнее</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

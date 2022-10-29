@@ -1,0 +1,29 @@
+<style>
+    i {
+        float: right;
+        transition: all 0.3s;
+    }
+
+    .btn:not(.collapsed) i {
+        transform: rotateZ(180deg);
+    }
+</style>
+
+<div class="row justify-content-center">
+  <div class="col-4">
+    <div>
+      <p class="btn collapsed m-0 p-0" data-bs-toggle="collapse" data-bs-target=".collapseExample"
+         aria-expanded="false" aria-controls="collapseExample">
+        Button with data-bs-target
+        <span class="d-inline px-1"></span>
+        <i class="bi bi-chevron-up"></i>
+      </p>
+
+    </div>
+    <ul class="collapse collapseExample list-unstyled ps-2" id="collapseExample">
+      <li>Lorem ipsum dolor.</li>
+      <li>Lorem ipsum dolor.</li>
+      <li>Lorem ipsum dolor.</li>
+    </ul>
+  </div>
+</div>

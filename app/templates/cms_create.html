@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+  <main>
+    <h1>Создание записи в категории {{ model_name }}</h1>
+    <form id="form" method="POST">
+      {% for field in fields %}
+        <div class="mb-3">
+          <label for="{{ field }}" class="form-label">{{ field|title }}</label>
+          <input type="text" name="{{ field }}" class="form-control" id="{{ field }}">
+        </div>
+
+      {% endfor %}
+      <button type="submit" class="btn btn-primary">Отправить</button>
+    </form>
+
+
+  </main>
+{% endblock content %}

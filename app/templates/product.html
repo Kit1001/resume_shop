@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-6">
+        <img src="{{ product.img }}"
+             alt="product image"
+             class="img-fluid"
+             style="width: 500px; height: 600px; object-fit: cover;"
+        >
+      </div>
+      <div class="col-6 d-flex flex-column justify-content-center">
+        <h1 class="display-5 fw-bolder">{{ product.name }}</h1>
+        <p class="fs-5 ms-3 pt-0 mb-5">{{ product.price }} <i class="fa fa-rub"></i></p>
+        <p class="lead"><span>{{ product.description }}</span>
+        </p>
+        <form id="form" action="
+        {% if request.USER != "Anonymous" %}
+        /cart/add/
+        {% else %}
+        /auth/
+        {% endif %}
+        " class="d-flex ">
+
+        <input type="hidden" value="{{ product.__class__.__name__ }}" name="category" id="category">
+        <input type="hidden" value="{{ product.pk }}" name="pk" id="pk">
+        <input id="quantity" name="quantity" type="number" max="99" min="0" value="1"
+               class="form-control text-center p-1" style="width: 3.5rem">
+
+        <button type="submit" class="btn btn-outline-dark ms-3"><i class="fa fa-shopping-bag pe-2"
+                                                                   aria-hidden="true"></i>Купить
+        </button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

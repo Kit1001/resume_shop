@@ -1,0 +1,72 @@
+{% set url = request['PATH_INFO'] %}
+
+<nav class="navbar navbar-expand navbar-light bg-light border-bottom">
+  <div class="container">
+    <a class="navbar-brand" href="/">Магазин</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <div class="row w-100 justify-content-between align-items-center flex-nowrap">
+        <div class="navbar-nav col-9 justify-content-center">
+          <a class="nav-link mx-3 {% if url=='/' %}active{% endif %}" aria-current="page" href="/">Главная</a>
+          <a class="nav-link mx-3 {% if url=='/catalogue/' %}active{% endif %}" href="/catalogue/">Каталог</a>
+          <a class="nav-link mx-3 {% if url=='/cms/' %}active{% endif %}" href="/cms/">Управление сайтом</a>
+        </div>
+        <div class="col-3 ms-5">
+          <div class="row d-flex align-items-center flex-nowrap">
+            <div class="col-3" style="width: 3.5rem">
+              {% if request.USER != 'Anonymous' %}
+                {#       Корзина         #}
+                <a href="/cart/" class="position-relative btn btn-outline-light text-nowrap my-0 py-0">
+                {% set cart_items_num = request.USER.cart_items_num %}
+                  <i class="fa fa-shopping-basket text-dark fs-3"></i>
+                  {% if cart_items_num > 0 %}
+                    <span class="position-absolute start-50 top-50 badge bg-danger rounded-circle">
+                  {{ cart_items_num }}
+                </span>
+                  {% endif %}
+                </a>
+              {% endif %}
+        </div>
+            {#        Уведомления        #}
+            <div class="col-3"  style="width: 3.5rem">
+              {% if request.USER != 'Anonymous' %}
+                <a href="/notifications/" class="position-relative btn btn-outline-light text-nowrap me-3 my-0 py-0">
+                {% set alerts = request.USER.notifications %}
+                  <i class="fa fa-bell-{% if alerts > 0 %}ringing{% else %}o{% endif %} text-dark fs-3"></i>
+                  {% if alerts > 0 %}
+                    <span class="position-absolute start-50 top-50 badge bg-danger rounded-circle">
+                  {{ alerts }}
+                </span>
+                  {% endif %}
+                </a>
+              {% endif %}
+            </div>
+            {#     Профиль     #}
+            <div class="col-6 ms-2">
+              {% if request.USER == 'Anonymous' %}
+                <a class="btn btn-outline-dark text-nowrap py-0" href="/auth/">
+                  <i class="fa fa-user-circle-o py-2 me-2" style="font-size: x-large"></i>
+                  <span class="align-middle pb-2">Войти</span>
+                </a>
+              {% else %}
+                <div class="dropdown">
+                  <button class="btn btn-outline-dark dropdown-toggle py-0 align-items-center" type="button" id="dropdownMenuButton"
+                          data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-user-circle-o py-2 me-2" style="font-size: x-large"></i>
+                    <span class="align-middle pb-2">{{ request.USER.username }}</span>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="/logout/">Выход</a></li>
+                  </ul>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

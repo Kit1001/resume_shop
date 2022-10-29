@@ -1,0 +1,14 @@
+{% set white_space = "&nbsp;" * nest_level * 3 %}
+<li class="nav-item">
+  <a href="/catalogue/?category={{ model.name }}"
+     class="nav-link link-dark {% if category == model.name %} bg-dark text-light {% endif %} ">
+    <div class="">
+      <span class="px-3 py-2">{{ white_space|safe }}{{ model.verbose_name }}</span>
+    </div>
+  </a>
+</li>
+{% set nest_level = nest_level + 1 %}
+{% for model in model.subcategories %}
+{% include "includes/catalogue_li.html" %}
+{% endfor %}
+{% set nest_level = nest_level - 1 %}

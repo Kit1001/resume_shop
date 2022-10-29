@@ -1,0 +1,16 @@
+{% set white_space = "&nbsp;" * nest_level * 3 %}
+<li class="nav-item">
+  <a href="?model={{ model.name }}"
+     class="nav-link link-dark {% if model_name == model.name %} link-light bg-dark active{% endif %} {{ nest_level }}">
+    <div class="d-flex justify-content-between">
+      <span>{{ white_space | safe }}{{ model.verbose_name }}</span>
+      <span class="{% if model_name == model.name %}text-light{% else %}text-dark{% endif %}">{{ model.num_of_items }}</span>
+    </div>
+  </a>
+</li>
+
+{% for model in model.subcategories %}
+  {% set nest_level = nest_level + 1 %}
+  {% include "includes/model_list_li.html" %}
+  {% set nest_level = nest_level - 1 %}
+{% endfor %}

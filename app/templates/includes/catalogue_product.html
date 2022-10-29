@@ -1,0 +1,12 @@
+<img src="{{ product.img }}" class="card-img-top"
+     alt="product image" style="height: 200px; object-fit: cover;">
+<div class="d-flex flex-column justify-content-between card-body">
+  <div>
+    <h5 class="card-title">{{ product.name }}</h5>
+    <h6 class="card-subtitle text-muted">{{ product.price }} <i class="fa fa-rub"></i></h6>
+  </div>
+  <p class="card-text mt-3">{{ product.description }}</p>
+  <div>
+    <a href="/product/?category={{ category }}&pk={{ product.pk }}" class="btn btn-outline-dark mt-3">Подробнее</a>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container-fluid mt-5">
+    <div class="row">
+      {#        Список категорий  #}
+      <div class="col-2">
+        <ul class="list-unstyled nav-pills">
+          {% for model in models %}
+            {% set nest_level = 0 %}
+            {% include "includes/catalogue_li.html" %}
+          {% endfor %}
+        </ul>
+      </div>
+
+      {#    Список товаров в категории#}
+      <div class="col-1"></div>
+      <div class="container col-8 mt-5">
+        <div class="row gap-5">
+          {% for product in products %}
+            <div class="card px-0 text-center col-3">
+              {% if products_are_categories %}
+                {% include "includes/catalogue_category.html" %}
+              {% else %}
+                {% include "includes/catalogue_product.html" %}
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

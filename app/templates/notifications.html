@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+  <div class="container mt-5">
+    <h2 class="text-center mb-5">Уведомления</h2>
+    <div class="row justify-content-center">
+      <div class="col-9">
+        <ul class="list-unstyled list-group ">
+          {% for notif in notifications %}
+            <li class="d-flex justify-content-between align-items-center list-group-item list-group-item-action p-0">
+              <a class="w-100 h-100 text-decoration-none text-dark ms-5 p-3
+                {% if not notif[3] %} fw-bolder {% endif %}" href="/notifications/?read={{ notif[0] }}">
+                {{ notif[2] }}
+              </a>
+              <a href="/notifications/?delete={{ notif[0] }}"
+                 class="me-5 text-decoration-none px-3 py-1 rounded-circle" style="z-index: 1">
+                <i class="fa fa-trash-o fs-5 text-dark"></i>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

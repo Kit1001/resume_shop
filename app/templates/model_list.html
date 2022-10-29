@@ -1,0 +1,6 @@
+<ul class="list-unstyled nav-pills">
+  {% for model in models %}
+    {% set nest_level = 0 %}
+    {% include "includes/model_list_li.html" %}
+  {% endfor %}
+</ul>

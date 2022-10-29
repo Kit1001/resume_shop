@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2 class="text-center my-5">Корзина</h2>
+  <div class="position-sticky d-flex flex-column gap-3 me-5 float-end" style="top: 5rem; right: 10rem;">
+    <h1>Итого</h1>
+    <p class="display-6 fw-bold">{{ request.USER.cart_full_cost }} <i class="fa fa-rub" aria-hidden="true"></i></p>
+    <div class="d-flex">
+      <a href="" class="btn btn-outline-dark"><i class="fa fa-credit-card" aria-hidden="true"></i> Оформить заказ</a>
+    </div>
+  </div>
+  <div class="container mt-5">
+    <div class="row justify-content-start ms-5">
+      <div class="col-9">
+        <ul class="list-unstyled">
+          {% for item in request.USER.cart_items %}
+            <li class="card d-flex flex-row justify-content-start align-items-center gap-3 p-3 my-2 shadow-sm">
+              <img class="my-0 py-0 img-fluid" src="{{ item.img }}" alt="product image"
+                   style="height: 100px; width: 100px; object-fit: cover;">
+              <div class="d-flex flex-column justify-content-between text-center" style="width: 20rem;">
+                <a class="text-decoration-none text-dark fs-3 fw-bold mb-4">{{ item.name }}</a>
+                <a class="ms-5 text-muted text-decoration-none"
+                   href="/cart/delete/?category={{ item.__class__.__name__ }}&pk={{ item.pk }}&quantity={{ item.quantity }}">Удалить</a>
+              </div>
+              <div class="d-flex flex-row justify-content-between" style="width: 15rem;">
+                <form class="d-flex align-items-center me-4"
+                      action="/cart/set/">
+                  <a class="text-decoration-none text-dark fs-4 me-1"
+                     href="/cart/delete/?category={{ item.__class__.__name__ }}&pk={{ item.pk }}">
+                    <i class="fa fa-minus" aria-hidden="true"></i>
+                  </a>
+                  <input type="text" class="form-text text-center fs-5 text-dark" name="quantity"
+                         value="{{ item.quantity }}"
+                         style="width: 2.5rem; height: 2rem;"
+                         oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.value = this.value > 99 ? 99 : this.value;">
+                  <input type="hidden" name="category" value="{{ item.__class__.__name__ }}">
+                  <input type="hidden" name="pk" value="{{ item.pk }}">
+                  <a class="text-decoration-none text-dark fs-4 ms-1"
+                     href="/cart/add/?category={{ item.__class__.__name__ }}&pk={{ item.pk }}">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                  </a>
+                </form>
+                <p class="d-inline-block display-6 text-nowrap">{{ item.total_cost }} <i class="fa fa-rub"
+                                                                                         aria-hidden="true"></i></p>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endblock %}
